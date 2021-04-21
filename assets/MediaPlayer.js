@@ -1,37 +1,33 @@
-function MediaPlayer(config) {
-  this.media = config.el;
-  this.plugins = config.plugins || [new AutoPlay()];
+class MediaPlayer {
+  constructor(config) {
+    this.media = config.el;
+    this.plugins = config.plugins || [new AutoPlay()];
 
-  this._initPlugins();
-}
-MediaPlayer.prototype._initPlugins = function(){
-  this.plugins.forEach(plugin =>{
-    plugin.run(this)
-  })
-}
-
-MediaPlayer.prototype.play = function() {
-  this.media.play();
-};
-
-MediaPlayer.prototype.pause = function() {
-  this.media.pause();
-};
-
-MediaPlayer.prototype.togglePlay = function() {
-  if (this.media.paused) {
-    this.play();
-  } else {
-    this.pause();
+    this._initPlugins();
   }
-};
-
-
-MediaPlayer.prototype.mute = function() {
-  this.media.muted = true;
-}
-
-MediaPlayer.prototype.toggleMute = function () {
-  this.media.muted = !this.media.muted
+  _initPlugins() {
+    this.plugins.forEach(plugin => {
+      plugin.run(this);
+    });
+  }
+  play() {
+    this.media.play();
+  }
+  pause() {
+    this.media.pause();
+  }
+  togglePlay() {
+    if (this.media.paused) {
+      this.play();
+    } else {
+      this.pause();
+    }
+  }
+  mute() {
+    this.media.muted = true;
+  }
+  toggleMute() {
+    this.media.muted = !this.media.muted;
+  }
 }
 export default MediaPlayer
